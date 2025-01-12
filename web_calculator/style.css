@@ -1,0 +1,79 @@
+h1 {
+    text-align: center;
+    color: rgb(132, 34, 189);
+    margin-bottom: 50px;
+    font-size: 50px;
+}
+
+.data {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+input[type="number"] {
+    height: 80px;
+    border-radius: 5px;
+    border-color: rgb(132, 34, 189);
+    font-size: 35px;
+}
+
+button {
+    background-color: rgb(132, 34, 189);
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.operations button {
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.group1, .group2, .group3 {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.group1 button {
+    width: 218px;
+    height: 90px;
+}
+
+.group2 button, .group3 button {
+    width: 442px;
+    height: 90px;
+}
+
+.results {
+    margin-bottom: 0px;;
+    display: flex;
+    justify-content: center;
+    
+}
+
+#result {
+    height: 80px;
+    text-align: right;
+    width: 890px;
+    border: 2px solid;
+    border-color: rgb(132, 34, 189);
+    border-radius: 5px;
+    font-size: 70px;
+}
+
+.rounds {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#rounded, #roundfloor, #roundCeil{
+    font-size: 35px;
+    width: 292px;
+    height: 90px;
+    cursor: pointer;
+}
+
+

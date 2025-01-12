@@ -1,0 +1,14 @@
+{
+    "nombre": "Pedro Toledo",
+    "edad": 35,
+    "esEstudiante": false,
+    "direccion": {
+        "calle": "Av. Siempre Viva",
+        "numero": 2345,
+        "ciudad": "Ciudad de México"
+    },
+    "telefonos": [
+        "+52 1234567890",
+        "+52 9876543210"
+    ]
+}

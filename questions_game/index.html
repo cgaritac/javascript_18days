@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saludo</title>
+    <link rel="stylesheet" href="misEstilos.css">
+</head>
+<body onload="start()">
+    <section class="title">
+        <h1>Questions Game</h1>
+        <h2 id="time">00</h2>
+    </section>
+    <section class="questions">
+        <ol>
+            <li>
+                <p>1. What is your name?</p>
+                <input type="text" id="question1">
+            </li>
+            <li>
+                <p>2. What is your last name?</p>
+                <input type="text" id="question2">
+            </li>
+            <li>
+                <p>3. What is your pets name?</p>
+                <input type="text" id="question3">
+            </li>
+            <li>
+                <p>4. Where do you live?</p>
+                <input type="text" id="question4">
+            </li>
+            <li>
+                <p>5. What is your cars color?</p>
+                <input type="text" id="question5">
+            </li>
+        </ol>
+    </section>
+    <section class="actions">
+        <button onclick="complete()">Listo</button>
+        <button onclick="restart()">Reiniciar</button>
+        <audio id="gameOver">
+            <source src="Audios/gameover.mp3" type="audio/mpeg">
+        </audio>
+    </section>
+    <script src="logic.js"></script>    
+</body>
+</html>

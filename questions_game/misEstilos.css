@@ -1,0 +1,62 @@
+body{
+    background-color: lightgray;
+}
+
+button{
+    color: white;
+    background-color: #6b8e23;
+    width: 150px;
+    height: 50px;
+    margin: 20px;
+    font-size: 25px;
+}
+
+audio::-webkit-media-controls-panel{
+    background-color: coral;
+}
+
+h1{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 60px;
+    color: green; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+h2{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 80px;
+    color: red; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.title{
+    text-align: center;
+}
+
+.questions{
+    font-size: 25px;
+    margin-left: 50px;
+}
+
+.questions ol li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px; 
+}
+
+.questions ol li p {
+    margin-right: 50px; 
+    font-size: 25px; 
+}
+
+input[type="text"]{
+    font-size: 25px;
+    padding: 10px;
+    flex: 0.75;
+}
+
+.actions{
+    text-align: center;
+}

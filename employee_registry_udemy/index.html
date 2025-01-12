@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Employee Registry</h1>
+
+    <main class="formEmp">
+        <label for="legajoEmp">
+            Legajo: 
+            <input id="legajoEmp" type="text">
+        </label>        
+        <label for="nameEmp">
+            Name:
+            <input id="nameEmp" type="text">
+        </label>        
+        <label for="lastNameEmp">
+            Last Name:
+            <input id="lastNameEmp" type="text">
+        </label>        
+        <label for="birthDate">
+            Date of Birth:
+            <input id="birthDate" type="date">
+        </label>        
+        <label for="positionEmp">
+            Position:
+            <input id="positionEmp" type="text">
+        </label>        
+        <button onclick="addEmployee()">Add Employee</button>
+        <button onclick="showEmployees()">Show Employees</button>
+
+        <pre id="employeesData"></pre>
+    </main>    
+    <script src="script.js"></script>
+</body>
+</html>

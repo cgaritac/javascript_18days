@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Calculadora</h1>
+    <section class="data">
+        <input type="number" id="number1" value="0">
+        <input type="number" id="number2" value="0">
+    </section>
+    <section class="operations">
+        <div class="group1">
+            <button onclick="add()" id="adition">+</button>
+            <button onclick="subs()" id="substraction">-</button>
+            <button onclick="mult()" id="multiplication">x</button>
+            <button onclick="div()" id="division">/</button>
+        </div>
+        <div class="group2">
+            <button onclick="pot()" id="potence">potencia</button>
+            <button onclick="sqRoot()" id="squareRoot">raiz</button>
+        </div>
+        <div class="group3">
+            <button onclick="absol()" id="abs">absoluto</button>
+            <button onclick="ran()" id="random">random</button>
+        </div>
+    </section>
+    <section class="results">
+        <p id="result">0</p>
+    </section>
+    <section class="rounds">
+        <button onclick="rou()" id="rounded">round</button>
+        <button onclick="fl()" id="roundfloor">floor</button>
+        <button onclick="ce()" id="roundCeil">ceil</button>
+    </section>
+    <script src="script.js"></script>    
+</body>
+</html>
