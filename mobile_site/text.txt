@@ -122,3 +122,241 @@ fetch("https://jsonplaceholder.typicode.com/posts/5", {
 .then(response => response.json())
 .then(data => console.log(data))
 .catch(error => console.error("Error:", error));
+
+let usuario = "Federico"
+let password = "1234"
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "GET",
+    credentials: "include",
+    headers: {
+        "Authorization": "Basic " + btoa(usuario + ":" + password),
+        "Content-Type": "application/json"
+    }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error("Error:", error));
+
+let token = "miToken"
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "GET",
+    credentials: "include",
+    headers: {
+        "Authorization": "Bearer" + token,
+        "Content-Type": "application/json"
+    }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error("Error:", error));
+
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "GET",
+    credentials: "include",
+    cache: "default", //Sigue las reglas definidas por el navegador y el cliente
+    headers: {
+        "Authorization": "Bearer" + token,
+        "Content-Type": "application/json"
+    }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error("Error:", error));
+
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "GET",
+    credentials: "include",
+    cache: "no-cache", //No se almacena en la cache
+    headers: {
+        "Authorization": "Bearer" + token,
+        "Content-Type": "application/json"
+    }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error("Error:", error));
+
+
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "GET",
+    credentials: "include",
+    cache: "no-store", //No se almacena en la cache y no se usa la cache
+    headers: {
+        "Authorization": "Bearer" + token,
+        "Content-Type": "application/json"
+    }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error("Error:", error));
+
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "GET",
+    credentials: "include",
+    cache: "reload", //Se recarga la cache 
+    headers: {
+        "Authorization": "Bearer" + token,
+        "Content-Type": "application/json"
+    }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error("Error:", error));
+
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "GET",
+    credentials: "include",
+    cache: "force-cache", // Se usa la cache si esta disponible
+    headers: {
+        "Authorization": "Bearer" + token,
+        "Content-Type": "application/json"
+    }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error("Error:", error));
+
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "GET",
+    credentials: "include",
+    cache: "only-if-cache", //Se usa la cache si esta disponible
+    headers: {
+        "Authorization": "Bearer" + token,
+        "Content-Type": "application/json"
+    }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error("Error:", error));
+
+
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "GET",
+    credentials: "include",
+    cache: "no-cache",
+    redirect: "follow", //Sigue la redireccion  
+    headers: {
+        "Authorization": "Bearer" + token,
+        "Content-Type": "application/json"
+    }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error("Error:", error));
+
+
+
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "GET",
+    credentials: "include",
+    cache: "no-cache",
+    redirect: "error", //No sigue la redireccion    
+    headers: {
+        "Authorization": "Bearer" + token,
+        "Content-Type": "application/json"
+    }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error("Error:", error));
+
+
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "GET",
+    credentials: "include",
+    cache: "no-cache",
+    redirect: "manual", //No sigue la redireccion, solo devuelve la información
+    headers: {
+        "Authorization": "Bearer" + token,
+        "Content-Type": "application/json"
+    }
+})
+.then(response => {
+    if(response.type === "opaqueredirect"){
+        let nuevaURL = response.headers.get("Location");
+        console.log("Redireccionando a: ", nuevaURL);
+    }else{
+        return response.json();
+    }
+})
+.then(data => console.log(data))
+.catch(error => console.error("Error:", error));
+
+axios.get().then().catch()
+
+let data = {
+    title: 'Mi titulo',
+    body: 'Mi cuerpo de publicacion'
+}
+
+axios.post('https://jsonplaceholder.typicode.com/posts', data)
+.then(respuesta => console.log("Post fue creado con éxito", respuesta.data))
+.catch(error => console.log("Error al publicar", error))
+
+let pedido1 = axios.get('https://api.ejemplo.com/data1');
+let pedido2 = axios.get('https://api.ejemplo.com/data2');
+let pedido3 = axios.get('https://api.ejemplo.com/data3');
+
+axios.all([pedido1, pedido2, pedido3])
+.then(axios.spread((respuesta1, respuesta2, respuesta3) => {}))
+.catch(error => {
+    // Manejar errores
+})
+
+
+//Más moderno
+Promise.all([pedido1, pedido2, pedido3])
+.then((([respuesta1, respuesta2, respuesta3]) => {}))
+.catch(error => {
+    // Manejar errores
+})
+
+let miToken = "este_es_mi_token";
+
+axios.interceptors.request.use(
+    (config) => {
+        config.headers.authorization = `Bearer ${miToken}`;
+        return config;
+    }, (error) => {
+        return Promise.reject(error);
+    }
+)
+
+axios.interceptors.response.use(
+    (response) => {
+        respuesta.data.customField = "Nuevo campo"
+        return response;
+    }, (error) => {
+        return Promise.reject(error);
+    }
+)
+
+
+
+let pedido4 = axios.get('https://api.ejemplo.com/data4');
+let pedido5 = axios.get('https://api.ejemplo.com/data5');
+let pedido6 = axios.get('https://api.ejemplo.com/data6');
+
+Promise.all([pedido4, pedido5, pedido6])
+.then((([respuesta4, respuesta5, respuesta6]) => {}))
+.catch(error => {
+    // Manejar errores
+})
+
+
+function consultarElementos() {
+    axios.get("https://api.restful-api.dev/objects")
+    .then(response => console.log(response.json))
+    .catch(error => console.log(error))
+}

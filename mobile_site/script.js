@@ -1,169 +1,161 @@
-let usuario = "Federico"
-let password = "1234"
-
-fetch("https://jsonplaceholder.typicode.com/posts", {
-    method: "GET",
-    credentials: "include",
-    headers: {
-        "Authorization": "Basic " + btoa(usuario + ":" + password),
-        "Content-Type": "application/json"
+async function obtenerTodos() {
+    try {
+        fetch('https://my-json-server.typicode.com/fedegaray/telefonos/db', {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(respuesta => respuesta.json())
+        .then(data => {
+            let cuerpoTabla = document.getElementById("tblContenido");
+            let salida = "";
+            for(let elemento of data.dispositivos){
+                salida += `
+                    <tr>
+                        <td>${elemento.id}</td>
+                        <td>${elemento.marca}</td>
+                        <td>${elemento.modelo}</td>
+                        <td>${elemento.color}</td>
+                        <td>${elemento.almacenamiento} GB</td>
+                        <td>${elemento.procesador}</td>
+                    </tr>
+                `;
+            } 
+            cuerpoTabla.innerHTML = salida;
+        })
+        .catch(error => { throw new Error("Error en la solicitud: " + error) })
+    } catch (error) {
+        console.error(error)
     }
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error("Error:", error));
+}
 
-let token = "miToken"
+async function consultarUno() {
+    try {
+        let id = document.getElementById('txtConsulta').value;
 
-fetch("https://jsonplaceholder.typicode.com/posts", {
-    method: "GET",
-    credentials: "include",
-    headers: {
-        "Authorization": "Bearer" + token,
-        "Content-Type": "application/json"
+        if (id === '') {
+            alert('No ha ingresado ningún ID');
+            return;
+        }
+
+        axios.get('https://my-json-server.typicode.com/fedegaray/telefonos/dispositivos/' + id)
+        .then(respuesta => {
+            let dispositivo = respuesta.data;
+            document.getElementById('consultaNombre').value = dispositivo.marca;
+            document.getElementById('consultaModelo').value = dispositivo.modelo;
+            document.getElementById('consultaColor').value = dispositivo.color;
+            document.getElementById('consultaAlmacenamiento').value = dispositivo.almacenamiento + ' GB';
+            document.getElementById('consultaProcesador').value = dispositivo.procesador;
+        })
+        .catch(error => { throw new Error("Error en la solicitud: " + error) })
+    } catch (error) {
+        console.error(error)
     }
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error("Error:", error));
+}
 
+async function agregarUno() {
+    try {
+        let marca = document.getElementById("inputMarca").value;
+        let modelo = document.getElementById("inputModelo").value;
+        let color = document.getElementById("inputColor").value;
+        let almacenamiento = document.getElementById("inputAlmacenamiento").value;
+        let procesador = document.getElementById("inputProcesador").value;
 
-fetch("https://jsonplaceholder.typicode.com/posts", {
-    method: "GET",
-    credentials: "include",
-    cache: "default", //Sigue las reglas definidas por el navegador y el cliente
-    headers: {
-        "Authorization": "Bearer" + token,
-        "Content-Type": "application/json"
+        // Nota: La API proporcionada (my-json-server) no permite la creación real de nuevos registros
+        // en el repositorio de GitHub. Solo simula las operaciones POST.
+        fetch('https://my-json-server.typicode.com/fedegaray/telefonos/dispositivos/', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                marca: marca,
+                modelo: modelo,
+                color: color,
+                almacenamiento: almacenamiento,
+                procesador: procesador
+            })
+        })
+        .then(respuesta => respuesta.json())
+        .then(data => {    
+            //Llama a la función obtenerTodos() para actualizar la lista de dispositivos
+            //No veremos esa actualización porque la API real no se modificará
+            obtenerTodos();
+            alert(`Se ha agregado un nuevo archivo:\nMarca: ${data.marca}\nModelo: ${data.modelo}\nColor: ${data.color}\nAlmacenamiento: ${data.almacenamiento}\nProcesador: ${data.procesador}`);
+        })
+        .catch(error => { throw new Error("Error en la solicitud: " + error) })
+    } catch (error) {
+        console.error(error)
     }
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error("Error:", error));
+}
 
+async function modificarUno() {        
+    try {
+        let id = document.getElementById('txtConsulta').value;
+        let nombre = document.getElementById('consultaNombre').value;
+        let modelo = document.getElementById('consultaModelo').value;
+        let color = document.getElementById('consultaColor').value;
+        let almacenamiento = document.getElementById('consultaAlmacenamiento').value;
+        let procesador = document.getElementById('consultaProcesador').value;
+        
+        if (nombre === '') {
+            alert('El registro a modificar no está completo');
+            return;
+        }
 
-fetch("https://jsonplaceholder.typicode.com/posts", {
-    method: "GET",
-    credentials: "include",
-    cache: "no-cache", //No se almacena en la cache
-    headers: {
-        "Authorization": "Bearer" + token,
-        "Content-Type": "application/json"
+        fetch('https://my-json-server.typicode.com/fedegaray/telefonos/dispositivos/' + id, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nombre: nombre,
+                data: {
+                    modelo: modelo,
+                    color: color,
+                    almacenamiento: almacenamiento,
+                    procesador: procesador
+                }
+            })
+        })
+        .then(respuesta => respuesta.json())
+        .then(data => {
+             alert(`Se ha modificado el archivo ${id}. Nuevo contenido:\n${JSON.stringify(data)}`);
+            //Llama a la función obtenerTodos() para actualizar la lista de dispositivos
+            //No veremos esa actualización porque la API real no se modificará
+            obtenerTodos();
+        })
+        .catch(error => { throw new Error("Error en la solicitud: " + error) })
+    } catch (error) {
+        console.error(error)
     }
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error("Error:", error));
+}
 
+async function eliminarUno() {
+    try {
+        let id = document.getElementById('txtConsulta').value;
 
+        if (id === '') {
+            alert('No ha ingresado ningún ID');
+            return;
+        }
 
-fetch("https://jsonplaceholder.typicode.com/posts", {
-    method: "GET",
-    credentials: "include",
-    cache: "no-store", //No se almacena en la cache y no se usa la cache
-    headers: {
-        "Authorization": "Bearer" + token,
-        "Content-Type": "application/json"
+        axios.delete('https://my-json-server.typicode.com/fedegaray/telefonos/dispositivos/' + id)
+        .then(respuesta => {
+            alert(`Se ha eliminado el archivo ${id}.`);
+            document.getElementById('consultaNombre').value = "";
+            document.getElementById('consultaModelo').value = "";
+            document.getElementById('consultaColor').value = "";
+            document.getElementById('consultaAlmacenamiento').value = "";
+            document.getElementById('consultaProcesador').value = "";
+
+            //Llama a la función obtenerTodos() para actualizar la lista de dispositivos
+            //No veremos esa actualización porque la API real no se modificará
+            obtenerTodos();
+        })
+        .catch(error => { throw new Error("Error en la solicitud: " + error) })
+    } catch (error) {
+        console.error(error)
     }
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error("Error:", error));
-
-
-fetch("https://jsonplaceholder.typicode.com/posts", {
-    method: "GET",
-    credentials: "include",
-    cache: "reload", //Se recarga la cache 
-    headers: {
-        "Authorization": "Bearer" + token,
-        "Content-Type": "application/json"
-    }
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error("Error:", error));
-
-
-fetch("https://jsonplaceholder.typicode.com/posts", {
-    method: "GET",
-    credentials: "include",
-    cache: "force-cache", // Se usa la cache si esta disponible
-    headers: {
-        "Authorization": "Bearer" + token,
-        "Content-Type": "application/json"
-    }
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error("Error:", error));
-
-
-fetch("https://jsonplaceholder.typicode.com/posts", {
-    method: "GET",
-    credentials: "include",
-    cache: "only-if-cache", //Se usa la cache si esta disponible
-    headers: {
-        "Authorization": "Bearer" + token,
-        "Content-Type": "application/json"
-    }
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error("Error:", error));
-
-
-
-fetch("https://jsonplaceholder.typicode.com/posts", {
-    method: "GET",
-    credentials: "include",
-    cache: "no-cache",
-    redirect: "follow", //Sigue la redireccion  
-    headers: {
-        "Authorization": "Bearer" + token,
-        "Content-Type": "application/json"
-    }
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error("Error:", error));
-
-
-
-
-fetch("https://jsonplaceholder.typicode.com/posts", {
-    method: "GET",
-    credentials: "include",
-    cache: "no-cache",
-    redirect: "error", //No sigue la redireccion    
-    headers: {
-        "Authorization": "Bearer" + token,
-        "Content-Type": "application/json"
-    }
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error("Error:", error));
-
-
-
-fetch("https://jsonplaceholder.typicode.com/posts", {
-    method: "GET",
-    credentials: "include",
-    cache: "no-cache",
-    redirect: "manual", //No sigue la redireccion, solo devuelve la información
-    headers: {
-        "Authorization": "Bearer" + token,
-        "Content-Type": "application/json"
-    }
-})
-.then(response => {
-    if(response.type === "opaqueredirect"){
-        let nuevaURL = response.headers.get("Location");
-        console.log("Redireccionando a: ", nuevaURL);
-    }else{
-        return response.json();
-    }
-})
-.then(data => console.log(data))
-.catch(error => console.error("Error:", error));
+}
